@@ -18,8 +18,8 @@ def get_db():
 
 @app.post("/sales/", response_model=schemas.Sales)
 def create_sale(sale: schemas.SalesCreate, db: Session = Depends(get_db)):
+    # We don't need to calculate total_amount manually anymore
     db_sale = models.SalesData(**sale.model_dump())
-    db_sale.total_amount = sale.quantity * sale.unit_price
     db.add(db_sale)
     db.commit()
     db.refresh(db_sale)
