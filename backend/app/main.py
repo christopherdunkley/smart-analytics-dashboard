@@ -1,13 +1,21 @@
 from fastapi import FastAPI, Depends, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from typing import List
 from . import models, schemas
 from .database import SessionLocal, engine
 from .analytics import SalesAnalytics
 
-models.Base.metadata.create_all(bind=engine)
-
 app = FastAPI(title="Smart Business Analytics Dashboard")
+
+# add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # in prod, this would be replaced with a frontend URL
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Dependency
 def get_db():
@@ -19,7 +27,6 @@ def get_db():
 
 @app.post("/sales/", response_model=schemas.Sales)
 def create_sale(sale: schemas.SalesCreate, db: Session = Depends(get_db)):
-    # We don't need to calculate total_amount manually anymore
     db_sale = models.SalesData(**sale.model_dump())
     db.add(db_sale)
     db.commit()
