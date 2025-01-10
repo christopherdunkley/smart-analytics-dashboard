@@ -1,43 +1,49 @@
-# README.md
-# Smart Analytics Dashboard
+# Smart Analytics Dashboard Backend
 
-A full-stack business analytics dashboard built with Python FastAPI and React. This project demonstrates modern software development practices and data analytics capabilities.
+FastAPI backend for the Smart Analytics Dashboard, providing REST API endpoints for business analytics data.
 
 ## Features
-- REST API built with FastAPI
+- REST API endpoints for sales data
+- Data analytics processing with pandas
 - SQLAlchemy ORM for database management
-- Data analytics and visualization
-- Authentication and authorization
-- Comprehensive test suite
-- React frontend with interactive charts
+- Automatic API documentation with Swagger UI
 
-## Tech Stack
-- Backend: Python, FastAPI, SQLAlchemy
-- Frontend: React, Chart.js
-- Database: SQLite (development), PostgreSQL (production)
-- Testing: pytest
-- Documentation: Swagger/OpenAPI
+## Setup
+```bash
+# Create and activate the virtual environment
+python -m venv venv
+.\venv\Scripts\activate
 
-## Getting Started
-1. Clone the repository
-2. Install dependencies: `pip install -r backend/requirements.txt`
-3. Run the server: `uvicorn app.main:app --reload`
-4. Visit `http://localhost:8000/docs` for API documentation
+# Install dependencies
+pip install fastapi
+pip install uvicorn
+pip install sqlalchemy
+pip install pandas
+pip install pytest
+pip install python-dotenv
+pip install httpx
+
+# Start the server
+python -m uvicorn app.main:app --reload
+```
+
+## API Documentation
+Once server is running, visit http://localhost:8000/docs for interactive API documentation.
 
 ## Project Structure
 ```
-smart_analytics/
-├── backend/
-│   ├── app/
-│   │   ├── main.py
-│   │   ├── models.py
-│   │   └── ...
-│   └── tests/
-└── frontend/
+backend/
+├── app/
+│   ├── __init__.py
+│   ├── main.py          # Main application file
+│   ├── models.py        # SQLAlchemy models
+│   ├── schemas.py       # Pydantic schemas
+│   ├── database.py      # Database configuration
+│   └── analytics.py     # Analytics logic
+└── tests/               # Test files
 ```
 
-## Contributing
-This project is for demonstration purposes.
-
-## License
-MIT
+## Testing
+```bash
+pytest tests/
+```
