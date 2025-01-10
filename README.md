@@ -59,7 +59,43 @@ npm install
 
 # Start the development server
 npm run dev
+
+# Install Tailwind css and its dependencies
+npm install -D tailwindcss@3.3.3 postcss@8.4.27 autoprefixer@10.4.14
+
+# Initialise Tailwind
+npx tailwindcss init -p
+
+# Create or edit .vscode/settings.json and add:
+{
+  "files.associations": {
+    "*.css": "tailwindcss"
+  }
+}
 ```
+
+### Loading Test Data
+```bash
+# Make sure the virtual environment is activated and navigate to the project root
+.\venv\Scripts\activate
+
+# create a Python shell
+python
+
+# Then, in this Python shell, run:
+from backend.app.database import SessionLocal
+from backend.app.test_data import add_test_data
+
+db = SessionLocal()
+add_test_data(db)
+db.close()
+exit()
+
+# Alternatively, run the reset script:
+python reset_db.py
+```
+
+This will populate the database with sample sales data that will appear in your dashboard visualisations.
 
 ## Development
 
